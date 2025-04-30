@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AUDLEY VENICE M.</title>
+</head>
+<body><center>
+
+  <div class="container" id="register-container">
+    <h2>Register</h2>
+    <input type="text" id="register-username" placeholder="Username" /><br>
+    <input type="password" id="register-password" placeholder="Password" /><br> 
+    <input type="gender" id="register-gender" placeholder="Gender" /><br>
+    <button onclick="register()">Register</button>
+  </div>
+
+  <div class="container" id="login-container">
+    <h2>Login</h2>
+    <input type="text" id="login-username" placeholder="Username" /><br>
+    <input type="password" id="login-password" placeholder="Password" /><br>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div class="container message" id="welcome-message" style="display:none;">
+    Welcome, <span id="user-name"></span>!
+  </div>
+
+  <script>
+    const users = {};
+
+    function register() {
+      const username = document.getElementById('register-username').value.trim();
+      const password = document.getElementById('register-password').value; 
+      const gender = document.getElementById('register-gender').value;
+
+      if (!username || !password || !gender) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      if (users[username]) {
+        alert('Username already exists.');
+        return;
+      }
+
+      users[username] = password;
+      alert('Registration successful. Please log in.');
+      document.getElementById('register-username').value = '';
+      document.getElementById('register-password').value = '';
+      document.getElementById('register-age').value = '';
+
+    }
+
+    function login() {
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      if (users[username] && users[username] === password) {
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('register-container').style.display = 'none';
+        document.getElementById('welcome-message').style.display = 'block';
+        document.getElementById('user-name').innerText = username;
+      } else {
+        alert('Invalid username or password.');
+      }
+    }
+  </script>
+</body>
+</html>
